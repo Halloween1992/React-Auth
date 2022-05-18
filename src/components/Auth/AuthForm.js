@@ -45,6 +45,7 @@ const AuthForm = () => {
       });
 
       const data = await resposne.json();
+      setIsSending(false);
       if (data.error) return setErrorMessage(data.error.message);
       login(data.idToken);
       history.replace("/");
