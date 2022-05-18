@@ -11,6 +11,10 @@ const AuthForm = () => {
   const { login, error, setErrorMessage } = authCtx;
   const history = useHistory();
 
+  const ChangeHandler = () => {
+    setErrorMessage("");
+  };
+
   const enteredEmailRef = useRef();
   const enteredPasswordRef = useRef();
 
@@ -48,6 +52,7 @@ const AuthForm = () => {
       setIsSending(false);
 
       if (data.error) return setErrorMessage(data.error.message);
+
       login(data.idToken);
       history.replace("/");
     } catch (error) {
@@ -62,11 +67,18 @@ const AuthForm = () => {
       <form onSubmit={onSubmitHandler}>
         <div className={classes.control}>
           <label htmlFor="email">Your Email</label>
-          <input ref={enteredEmailRef} type="email" id="email" required />
+          <input
+            ref={enteredEmailRef}
+            type="email"
+            id="email"
+            required
+            onChange={ChangeHandler}
+          />
         </div>
         <div className={classes.control}>
           <label htmlFor="password">Your Password</label>
           <input
+            onChange={ChangeHandler}
             ref={enteredPasswordRef}
             type="password"
             id="password"
